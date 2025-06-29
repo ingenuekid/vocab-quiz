@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vocabulary Dictation Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: auto; padding: 20px; }
+        h1 { text-align: center; }
+        p.instructions { margin-bottom: 20px; font-size: 1em; }
+        .question { margin-bottom: 15px; }
+        .question label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .result { margin-top: 25px; font-size: 1.2em; color: blue; }
+        input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px 20px; font-size: 1em; margin-right: 10px; }
+    </style>
+    <script>
+        // Full quiz data
+        var quizItems = [{"chinese": "不正常的，反常的", "english": "abnormal"}, {"chinese": "在国外；到国外", "english": "abroad"}, {"chinese": "绝对地，完全地", "english": "absolutely"}, {"chinese": "口音", "english": "accent"}, {"chinese": "接受；录取", "english": "accept"}, {"chinese": "使用权；进入权", "english": "access"}, {"chinese": "事故，意外", "english": "accident"}, {"chinese": "偶然地，意外地", "english": "accidentally"}, {"chinese": "为……提供住宿", "english": "accommodate"}, {"chinese": "住宿，住处", "english": "accommodation"}, {"chinese": "账户", "english": "account"}, {"chinese": "会计", "english": "accountant"}, {"chinese": "疼痛", "english": "ache"}, {"chinese": "疼痛的", "english": "aching"}, {"chinese": "熟人", "english": "acquaintance"}, {"chinese": "表演", "english": "acting"}, {"chinese": "忙碌的；(尤指)好活动的", "english": "active"}, {"chinese": "男演员", "english": "actor"}, {"chinese": "女演员", "english": "actress"}, {"chinese": "适配器", "english": "adaptor"}, {"chinese": "添加剂(常复数)", "english": "additive"}, {"chinese": "令人钦佩的", "english": "admirable"}, {"chinese": "羡慕，钦佩", "english": "admiration"}, {"chinese": "敬佩，钦佩", "english": "admire"}, {"chinese": "爱慕者", "english": "admirer"}, {"chinese": "钦佩的，赞美的", "english": "admiring"}, {"chinese": "青春期", "english": "adolescence"}, {"chinese": "青春期的；青少年", "english": "adolescent"}, {"chinese": "成年人", "english": "adult"}, {"chinese": "成人期", "english": "adulthood"}, {"chinese": "(使)发展，促进；  发展，进展", "english": "advance"}, {"chinese": "先进的；高级的", "english": "advanced"}, {"chinese": "冒险；冒险经历；奇遇", "english": "adventure"}, {"chinese": "广告，广告宣传", "english": "advertisement"}, {"chinese": "忠告，建议，劝告", "english": "advice"}, {"chinese": "买得起", "english": "afford"}, {"chinese": "非洲", "english": "Africa"}, {"chinese": "非洲的；非洲人", "english": "African"}, {"chinese": "变老；变旧", "english": "ageing"}, {"chinese": "代理人，经纪人", "english": "agent"}, {"chinese": "长时间", "english": "ages"}, {"chinese": "……之前", "english": "ago"}, {"chinese": "应允；答应； 同意", "english": "agree"}, {"chinese": "提前；领先", "english": "ahead"}, {"chinese": "活着的；鲜活的", "english": "alive"}, {"chinese": "允许", "english": "allow"}, {"chinese": "同盟，与……结盟", "english": "ally"}, {"chinese": "几乎，差不多", "english": "almost"}, {"chinese": "使惊奇", "english": "amaze"}, {"chinese": "大为惊奇的", "english": "amazed"}, {"chinese": "令人大为惊奇的", "english": "amazing"}, {"chinese": "救护车", "english": "ambulance"}, {"chinese": "古代的", "english": "ancient"}, {"chinese": "使恼怒，使生气", "english": "annoy"}, {"chinese": "愤怒的，气愤的", "english": "annoyed"}, {"chinese": "使恼怒的，使生气的", "english": "annoying"}, {"chinese": "南极", "english": "Antarctica"}, {"chinese": "古老的，年代久远的；过时的， 古董的； 古董", "english": "antique"}, {"chinese": "消毒剂；防腐剂；抗菌剂", "english": "antiseptic"}, {"chinese": "公寓", "english": "apartment"}, {"chinese": "道歉", "english": "apologise"}, {"chinese": "出现", "english": "appear"}, {"chinese": "应用； 申请", "english": "application"}, {"chinese": "申请；报名", "english": "apply"}, {"chinese": "学徒；徒弟；使拜师于", "english": "apprentice"}, {"chinese": "学徒身份；学徒期", "english": "apprenticeship"}, {"chinese": "水生的；水上的", "english": "aquatic"}, {"chinese": "阿拉伯的；阿拉伯人", "english": "Arab"}, {"chinese": "阿拉伯语的；阿拉伯语", "english": "Arabic"}, {"chinese": "考古学的", "english": "archaeological"}, {"chinese": "考古学家", "english": "archaeologist"}, {"chinese": "考古学", "english": "archaeology"}, {"chinese": "射箭运动员", "english": "archer"}, {"chinese": "射箭", "english": "archery"}, {"chinese": "建筑师", "english": "architect"}, {"chinese": "阿根廷", "english": "Argentina"}, {"chinese": "争吵，争辩", "english": "argument"}, {"chinese": "大约", "english": "around"}, {"chinese": "安排", "english": "arrange"}, {"chinese": "安排", "english": "arrangement"}, {"chinese": "到达", "english": "arrive"}, {"chinese": "艺术", "english": "art"}, {"chinese": "艺术家", "english": "artist"}, {"chinese": "与艺术相关的，有美感的，有艺术性的", "english": "artistic"}, {"chinese": "睡着的", "english": "asleep"}, {"chinese": "阿司匹林", "english": "aspirin"}, {"chinese": "占星术， 星座", "english": "astrology"}, {"chinese": "天文学家", "english": "astronomer"}, {"chinese": "天文学的", "english": "astronomical"}, {"chinese": "天文学", "english": "astronomy"}, {"chinese": "(围绕地球的)大气，大气层，大气圈", "english": "atmosphere"}, {"chinese": "袭击", "english": "attack"}, {"chinese": "迷人的，吸引人的", "english": "attractive"}, {"chinese": "亲笔签名", "english": "autograph"}, {"chinese": "自动的，自动化的", "english": "automatic"}, {"chinese": "自动地", "english": "automatically"}, {"chinese": "平均", "english": "average"}, {"chinese": "避免、防止", "english": "avoid"}, {"chinese": "醒着的；醒来", "english": "awake"}, {"chinese": "奖金，奖品；颁发", "english": "award"}, {"chinese": "很坏的；极讨厌的", "english": "awful"}, {"chinese": "照看小孩", "english": "baby-sitting"}, {"chinese": "临时代为照看婴孩", "english": "babysit"}, {"chinese": "临时照顾幼儿者；  临时保姆", "english": "babysitter"}, {"chinese": "徽章", "english": "badge"}, {"chinese": "平衡", "english": "balance"}, {"chinese": "秃顶的", "english": "bald"}, {"chinese": "秃头", "english": "baldness"}, {"chinese": "绷带", "english": "bandage"}, {"chinese": "赤脚", "english": "barefoot"}, {"chinese": "咖啡师；咖啡吧员", "english": "barista"}, {"chinese": "谷仓", "english": "barn"}, {"chinese": "电池", "english": "battery"}, {"chinese": "豆", "english": "bean"}, {"chinese": "打败；节奏，节拍", "english": "beat"}, {"chinese": "蜂窝", "english": "beehive"}, {"chinese": "养蜂人", "english": "beekeeper"}, {"chinese": "养蜂", "english": "beekeeping"}, {"chinese": "观点，看法", "english": "belief"}, {"chinese": "属于；适应；合得来", "english": "belong"}, {"chinese": "十亿", "english": "billion"}, {"chinese": "生物学家", "english": "biologist"}, {"chinese": "生物", "english": "Biology"}, {"chinese": "观察鸟类", "english": "bird-watching"}, {"chinese": "出生", "english": "birth"}, {"chinese": "饼干", "english": "biscuit"}, {"chinese": "把……归咎于；责怪；指责；责任", "english": "blame"}, {"chinese": "使混合；掺和", "english": "blend"}, {"chinese": "求上帝保佑，祈神赐福，祝福", "english": "bless"}, {"chinese": "支持，赞同；上帝的恩宠，祝福", "english": "blessing"}, {"chinese": "使……看不见", "english": "blind"}, {"chinese": "博客，写博客", "english": "blog"}, {"chinese": "板", "english": "board"}, {"chinese": "炽热的；很热的", "english": "boiling"}, {"chinese": "国界，边界", "english": "border"}, {"chinese": "感到厌倦的", "english": "bored"}, {"chinese": "无聊的，令人厌烦的", "english": "boring"}, {"chinese": "为某事花费时间或精力，操心", "english": "bother"}, {"chinese": "博茨瓦纳共和国", "english": "Botswana"}, {"chinese": "布莱叶点字法", "english": "braille"}, {"chinese": "大脑", "english": "brain"}, {"chinese": "巴西", "english": "Brazil"}, {"chinese": "巴西的；巴西人", "english": "Brazilian"}, {"chinese": "微风", "english": "breeze"}, {"chinese": "砌砖工，瓦工", "english": "bricklayer"}, {"chinese": "巧妙的：使人印象深的", "english": "brilliant"}, {"chinese": "卓越地", "english": "brilliantly"}, {"chinese": "宽带的；宽带", "english": "broadband"}, {"chinese": "手册、小册子", "english": "brochure"}, {"chinese": "浏览", "english": "browse"}, {"chinese": "浏览器", "english": "browser"}, {"chinese": "桶", "english": "bucket"}, {"chinese": "佛教", "english": "Buddhism"}, {"chinese": "佛教的，佛教徒", "english": "Buddhist"}, {"chinese": "平房", "english": "bungalow"}, {"chinese": "入室盗窃罪", "english": "burglary"}, {"chinese": "燃烧", "english": "burn"}, {"chinese": "埋葬，安葬", "english": "bury"}, {"chinese": "出租车", "english": "cab"}, {"chinese": "电线， 电缆", "english": "cable"}, {"chinese": "咖啡馆，小餐馆", "english": "cafe"}, {"chinese": "计算", "english": "calculate"}, {"chinese": "计算", "english": "calculation"}, {"chinese": "大卡，千卡", "english": "calorie"}, {"chinese": "运河", "english": "canal"}, {"chinese": "取消", "english": "cancel"}, {"chinese": "取消", "english": "cancellation"}, {"chinese": "皮划艇", "english": "canoe"}, {"chinese": "皮划艇运动", "english": "canoeing"}, {"chinese": "队长", "english": "captain"}, {"chinese": "旅行拖车，宿营拖车", "english": "caravan"}, {"chinese": "碳水化合物", "english": "carbohydrate"}, {"chinese": "红衣主教", "english": "cardinal"}, {"chinese": "关心，照顾", "english": "care"}, {"chinese": "仔细的；谨慎的", "english": "careful"}, {"chinese": "地毯", "english": "carpet"}, {"chinese": "(火车)车厢", "english": "carriage"}, {"chinese": "庆祝", "english": "celebrate"}, {"chinese": "庆祝", "english": "celebration"}, {"chinese": "细胞", "english": "cell"}, {"chinese": "世纪", "english": "century"}, {"chinese": "典礼", "english": "ceremony"}, {"chinese": "当然，肯定，确定", "english": "certainly"}, {"chinese": "证明；证明书", "english": "certificate"}, {"chinese": "挑战，考验", "english": "challenge"}, {"chinese": "富于挑战性的；困难而有趣的", "english": "challenging"}, {"chinese": "冠军", "english": "champion"}, {"chinese": "锦标赛、冠军头衔", "english": "championship"}, {"chinese": "特色", "english": "character"}, {"chinese": "费用；收费", "english": "charge"}, {"chinese": "迷人的", "english": "charming"}, {"chinese": "欺骗；作弊", "english": "cheat"}, {"chinese": "欢呼", "english": "cheer"}, {"chinese": "兴高采烈的", "english": "cheerful"}, {"chinese": "化学物质", "english": "chemical"}, {"chinese": "化学", "english": "Chemistry"}, {"chinese": "芯片", "english": "chip"}, {"chinese": "铬", "english": "chromium"}, {"chinese": "马戏团", "english": "circus"}, {"chinese": "文明；文明社会", "english": "civilization"}, {"chinese": "教化；使文明", "english": "civilize"}, {"chinese": "文明的；有教养的", "english": "civilized"}, {"chinese": "声称：断言：主张", "english": "claim"}, {"chinese": "典型的，经典的", "english": "classic"}, {"chinese": "(音乐)古典的", "english": "classical"}, {"chinese": "散去，消散", "english": "clear"}, {"chinese": "小丑", "english": "clown"}, {"chinese": "教练", "english": "coach"}, {"chinese": "海岸线；沿海地带", "english": "coastline"}, {"chinese": "可可粉，可可豆", "english": "cocoa"}, {"chinese": "倒塌，坍塌", "english": "collapse"}, {"chinese": "收集，募捐", "english": "collect"}, {"chinese": "哥伦比亚的；哥伦比亚人", "english": "Colombian"}, {"chinese": "结合体；混合体", "english": "combination"}, {"chinese": "(使)结合，混合", "english": "combine"}, {"chinese": "舒服的", "english": "comfortable"}, {"chinese": "评价，评论", "english": "comment"}, {"chinese": "商务的，商业的；电视广告", "english": "commercial"}, {"chinese": "交流，沟通", "english": "communicate"}, {"chinese": "交流", "english": "communication"}, {"chinese": "社区；社会", "english": "community"}, {"chinese": "比较", "english": "compare"}, {"chinese": "竞赛", "english": "competition"}, {"chinese": "抱怨", "english": "complain"}, {"chinese": "抱怨", "english": "complaint"}, {"chinese": "彻底地，完整地", "english": "completely"}, {"chinese": "复杂的；难懂的", "english": "complicated"}, {"chinese": "作曲", "english": "composition"}, {"chinese": "必须做的，强制性的", "english": "compulsory"}, {"chinese": "电脑相关的", "english": "computer-related"}, {"chinese": "计算机科学", "english": "computing"}, {"chinese": "集中；聚精会神", "english": "concentrate"}, {"chinese": "专注", "english": "concentration"}, {"chinese": "音乐会", "english": "concert"}, {"chinese": "水泥，混凝土", "english": "concrete"}, {"chinese": "(乐队)指挥", "english": "conductor"}, {"chinese": "混淆", "english": "confuse"}, {"chinese": "祝贺", "english": "congratulate"}, {"chinese": "祝贺", "english": "congratulations"}, {"chinese": "连接", "english": "connect"}, {"chinese": "连接", "english": "connection"}, {"chinese": "有意识的，意识到的", "english": "conscious"}, {"chinese": "自觉地，有意识地", "english": "consciously"}, {"chinese": "保护；环保", "english": "conservation"}, {"chinese": "保护", "english": "conserve"}, {"chinese": "考虑；细想", "english": "consider"}, {"chinese": "建造", "english": "construct"}, {"chinese": "包含", "english": "contain"}, {"chinese": "继续", "english": "continue"}, {"chinese": "改造", "english": "convert"}, {"chinese": "厨灶、炉具", "english": "cooker"}, {"chinese": "烹饪", "english": "cookery"}, {"chinese": "绝妙的，酷的", "english": "cool"}, {"chinese": "正确的；改正", "english": "correct"}, {"chinese": "正确地", "english": "correctly"}, {"chinese": "因为(口语)", "english": "cos"}, {"chinese": "代价；牺牲；付出", "english": "cost"}, {"chinese": "婴儿床", "english": "cot"}, {"chinese": "小屋，村舍", "english": "cottage"}, {"chinese": "伯爵", "english": "count"}, {"chinese": "女伯爵", "english": "countess"}, {"chinese": "勇气", "english": "courage"}, {"chinese": "(网球等)球场", "english": "court"}, {"chinese": "掩盖", "english": "cover"}];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function generateQuiz() {
+            shuffleArray(quizItems);
+            var selected = quizItems.slice(0, 50);
+            var form = document.getElementById('quiz-form');
+            form.innerHTML = '';
+            selected.forEach((item, index) => {
+                var qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                var label = document.createElement('label');
+                label.innerText = (index + 1) + '. ' + item.chinese;
+                var input = document.createElement('input');
+                input.type = 'text';
+                input.id = 'q' + index;
+                input.setAttribute('data-answer', item.english.toLowerCase());
+                input.placeholder = 'Enter the English word or phrase';
+                qDiv.appendChild(label);
+                qDiv.appendChild(input);
+                form.appendChild(qDiv);
+            });
+        }
+
+        function gradeQuiz() {
+            var correct = 0;
+            var inputs = document.querySelectorAll('#quiz-form input[type="text"]');
+            inputs.forEach(input => {
+                var answer = input.getAttribute('data-answer');
+                var userAns = input.value.trim().toLowerCase();
+                if (userAns === answer) {
+                    correct++;
+                }
+            });
+            var total = inputs.length;
+            var accuracy = ((correct / total) * 100).toFixed(2);
+            document.getElementById('result').innerText = `Your accuracy: ${accuracy}% (${correct}/${total})`;
+        }
+
+        window.onload = function() {
+            generateQuiz();
+        };
+    </script>
+</head>
+<body>
+    <h1>Random Vocabulary Dictation Quiz (50 Items)</h1>
+    <p class="instructions">Type the English word or phrase matching each Chinese definition below, then click "Submit" to see your score. Click "New Quiz" to load another random set.</p>
+    <form id="quiz-form" onsubmit="event.preventDefault(); gradeQuiz();"></form>
+    <button onclick="gradeQuiz()">Submit</button>
+    <button onclick="generateQuiz()">New Quiz</button>
+    <div id="result" class="result"></div>
+</body>
+</html>
